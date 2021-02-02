@@ -5,8 +5,8 @@ A python script that will change your java version for you in Windows.
 
 ## Requirements
 
-You need to be able to open a new Command Prompt as an administrator.
-A JAVA_HOME environment variable, which is on your Path (instructions [here](https://mkyong.com/java/how-to-set-java_home-on-windows-10/)).
+- You need to be able to open a new Command Prompt as an administrator.
+- A JAVA_HOME environment variable, which is on your Path (instructions [here](https://mkyong.com/java/how-to-set-java_home-on-windows-10/)).
 
 ## Usage
 
