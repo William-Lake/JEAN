@@ -17,8 +17,8 @@ jobs:
         run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}          
       - name: PyInstaller Windows
         uses: JackMcKew/pyinstaller-action-windows@main
-          with:
-            path: src
+        with:
+          path: src
       - name: Move Executable
         run: |
           mv src/dist/windows/*.exe JEAN${{ steps.get_version.outputs.VERSION }}.exe
