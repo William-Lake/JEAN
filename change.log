@@ -1,1 +1,3 @@
-Initial commit, no current changes.
+Corrected workflow yml to:
+    - Trigger when tag pushed,
+    - Use tag name when creating .exe / Release.
