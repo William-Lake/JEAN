@@ -20,7 +20,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install pyinstaller
       - name: Create .exe
-        run: pyinstaller --onefile --name JEAN${{ steps.get_version.outputs.VERSION }}.exe
+        run: pyinstaller --onefile --name JEAN${{ steps.get_version.outputs.VERSION }}.exe change_java_version.py
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
