@@ -1,3 +1,4 @@
+from argparse import ArgumentParser, RawTextHelpFormatter
 import glob
 import logging
 import os
@@ -60,11 +61,9 @@ def collect_java_dirs():
 
     return java_dirs
 
+def main(args):
 
-if __name__ == "__main__":
-
-    logging.basicConfig(level=logging.INFO)
-
+    # TODO Add method for determining this on your own.
     print(
         "!!!!! THIS SCRIPT NEEDS TO BE RAN FROM AN ADMIN COMMAND PROMPT FOR IT TO WORK !!!!!\n\n\n"
     )
@@ -109,4 +108,20 @@ if __name__ == "__main__":
             "Error thrown when trying to set environment variable. You may need to run this script from an admin prompt."
         )
 
-        exit(1)
+        exit(1)    
+
+def gather_args():
+
+    arg_parser = ArgumentParser(description='Updates your JAVA_HOME environment variable.',prog='JEAN.exe') # TODO Implement Colorama,add epilog w/ usage examples.
+
+    arg_parser.add_argument('-v',help='Verbose logs.',action='store_true') # TODO Implement
+
+    return arg_parser.parse_args()
+
+if __name__ == "__main__":
+
+    logging.basicConfig(level=logging.INFO)
+
+    args = gather_args()
+
+    main(args)
