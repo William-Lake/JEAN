@@ -1,11 +1,12 @@
-name: Create Release
+name: Build EXE and create release
 on:
   push:
+    tags:
+      - 'v*.*.*'
 
 jobs:
   build:
-    if: github.event_name == 'push' && contains(github.ref, 'refs/tags/v')
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
       - name: Set up Python 3.8
@@ -14,14 +15,15 @@ jobs:
           python-version: 3.8
       - name: Get the version #https://github.community/t/how-to-get-just-the-tag-name/16241/10
         id: get_version
+        shell: bash # https://github.community/t/how-to-get-just-the-tag-name/16241/14
         run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}          
-      - name: PyInstaller Windows
-        uses: JackMcKew/pyinstaller-action-windows@main
-        with:
-          path: src
-      - name: Move Executable
+      - name: Install Dependencies
         run: |
-          mv src/dist/windows/*.exe JEAN.exe
+          python -m pip install pyinstaller
+      - name: Build EXE
+        run: pyinstaller --onefile change_java_version.py
+      - name: Move Executable
+        run: move dist/change_java_version.exe JEAN.exe
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -39,7 +41,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }} 
-          asset_path: ./JEAN.exe
+          upload_url:  ${{ steps.create_release.outputs.upload_url }}
+          asset_path: .\JEAN.exe
           asset_name: JEAN.exe
           asset_content_type: application/vnd.microsoft.portable-executable # https://stackoverflow.com/a/43916291
