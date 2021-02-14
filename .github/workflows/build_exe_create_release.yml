@@ -21,7 +21,7 @@ jobs:
         run: |
           python -m pip install pyinstaller
       - name: Build EXE
-        run: pyinstaller --onefile change_java_version.py
+        run: pyinstaller --onefile --icon=JEAN.ico change_java_version.py
       - name: Move Executable
         run: move dist/change_java_version.exe JEAN.exe
       - name: Create Release
